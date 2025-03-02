@@ -34,6 +34,8 @@ services:
     container_name: gluetun
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     volumes:
       - ${APPDATA_PATH}/gluetun:/gluetun
       - ${APPDATA_PATH}/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
