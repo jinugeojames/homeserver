@@ -42,12 +42,12 @@ services:
         ipv4_address: 50.0.0.5
     restart: unless-stopped
     ports:
-      - "${IT_TOOLS}:80"
+      - "${IT_TOOLS_PORT}:80"
 
   stirling-pdf:
     image: frooodle/s-pdf:latest
     ports:
-      - "${STIRLING_PORT}:8080"
+      - "${STIRLING_PDF_PORT}:8080"
     volumes:
       - ${APPDATA_PATH}/stirling-pdf/training-data:/usr/share/tessdata #Required for extra OCR languages
       - ${APPDATA_PATH}/stirling-pdf/configs:/configs
