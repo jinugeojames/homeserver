@@ -16,7 +16,7 @@ services:
     depends_on:
       prowlarr:
         condition: service_started
-    network_mode: "service:gluetun"
+    network_mode: "service:wireguard-client"
     deploy:
       restart_policy:
         condition: unless-stopped
