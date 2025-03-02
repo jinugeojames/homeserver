@@ -9,7 +9,7 @@ services:
       - TZ=Asia/Kolkata
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ${APPDATA_PATH}/nzbget/config:/config
+      - ${APPDATA_PATH}/deluge/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads #optional
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
