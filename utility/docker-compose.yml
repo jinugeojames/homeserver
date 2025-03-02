@@ -1,17 +1,16 @@
 services:
   filebrowser:
-    image: filebrowser/filebrowser
+    image: filebrowser/filebrowser:s6
     container_name: filebrowser
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
       # Root directory
-      - root:/srv:rw
       - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/filebrowser.db
       - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
-      - ${APPDATA_PATH}/filebrowser/config/filebrowser.json:/.filebrowser.json:ro
-
+      - ${MEDIA_PATH}:/srv/users/esh/media:rw
+      - ${APPDATA_PATH}:/srv/users/esh/appdata:rw
 
       # # Other directories you want to mount
       # # For example
@@ -50,8 +49,8 @@ services:
     ports:
       - "${STIRLING_PORT}:8080"
     volumes:
-      - ./trainingData:/usr/share/tessdata #Required for extra OCR languages
-      - ./extraConfigs:/configs
+      - ${APPDATA_PATH}/stirling-pdf/training-data:/usr/share/tessdata #Required for extra OCR languages
+      - ${APPDATA_PATH}/stirling-pdf/configs:/configs
     #      - ./customFiles:/customFiles/
     #      - ./logs:/logs/
     environment:

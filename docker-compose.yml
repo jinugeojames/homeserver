@@ -1,7 +1,7 @@
 include:
   - ./network/docker-compose.yml
   - ./utility/docker-compose.yml
-  - ./media/docker-compose.yml
-  - ./downloaders/docker-compose.yml
+  # - ./media/docker-compose.yml
+  # - ./downloaders/docker-compose.yml
   - ./logging_monitoring/docker-compose.yml
 
