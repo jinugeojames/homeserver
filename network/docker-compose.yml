@@ -19,7 +19,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
       home-server:
-        ipv4_address: 50.0.0.1
+        ipv4_address: 50.0.0.10
     deploy:
       restart_policy:
         condition: unless-stopped
