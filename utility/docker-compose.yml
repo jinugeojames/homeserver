@@ -7,8 +7,8 @@ services:
       - PGID=1000
     volumes:
       # Root directory
-      # - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/filebrowser.db
-      # - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
+      - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/database.db
+      - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
       - ${MEDIA_PATH}:/srv/users/esh/media:rw
       - ${APPDATA_PATH}:/srv/users/esh/appdata:rw
 
