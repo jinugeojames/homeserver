@@ -9,7 +9,7 @@ services:
       - TZ=Asia/Kolkata
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ./APPDATA/deluge/config:/config
+      - ../APPDATA/deluge/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads #optional
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -41,7 +41,7 @@ services:
       #- PEERPORT= #optional
       #- HOST_WHITELIST= #optional
     volumes:
-      - ./APPDATA/transmission/config:/config
+      - ../APPDATA/transmission/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads
       - ${MEDIA_PATH}/watch:/media/watch
     labels:
@@ -69,7 +69,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ./APPDATA/nzbget/config:/config
+      - ../APPDATA/nzbget/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads #optional
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -97,7 +97,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ./APPDATA/prowlarr/config:/config
+      - ../APPDATA/prowlarr/config:/config
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:wireguard-client"

@@ -75,7 +75,7 @@ services:
       - 6881:6881/udp
       - 58846:58846 #optional
     volumes:
-      - ./APPDATA/wireguard/config:/config
+      - ../APPDATA/wireguard/config:/config
       - /lib/modules:/lib/modules # optional
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
@@ -99,8 +99,8 @@ services:
   #   devices:
   #     - /dev/net/tun:/dev/net/tun
   #   volumes:
-  #     - ./APPDATA/gluetun:/gluetun
-  #     - ./APPDATA/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+  #     - ../APPDATA/gluetun:/gluetun
+  #     - ../APPDATA/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
   #   environment:
   #     - VPN_SERVICE_PROVIDER=custom
   #     - VPN_TYPE=wireguard
