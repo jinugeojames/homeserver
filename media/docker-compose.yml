@@ -22,6 +22,11 @@ services:
       restart_policy:
         condition: unless-stopped
         delay: 7s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
 
   #Lidarr
   lidarr:
@@ -44,6 +49,11 @@ services:
       restart_policy:
         condition: unless-stopped
         delay: 9s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
 
   #Sonarr
   sonarr:
@@ -67,6 +77,11 @@ services:
       restart_policy:
         condition: unless-stopped
         delay: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
 
   #Radarr
   radarr:
@@ -90,3 +105,8 @@ services:
       restart_policy:
         condition: unless-stopped
         delay: 11s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"

@@ -23,6 +23,11 @@ services:
     deploy:
       restart_policy:
         condition: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
   #VPN
   gluetun:
     image: qmcgaw/gluetun
@@ -82,3 +87,8 @@ services:
     deploy:
       restart_policy:
         condition: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
