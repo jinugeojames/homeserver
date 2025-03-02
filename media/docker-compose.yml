@@ -140,8 +140,6 @@ services:
   whisparr:
     container_name: whisparr
     image: ghcr.io/hotio/whisparr
-    ports:
-      - "6969:6969"
     environment:
       - PUID=1000
       - PGID=1000
