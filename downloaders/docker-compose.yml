@@ -15,7 +15,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:wireguard-client"
     depends_on:
-      gluetun:
+      wiregaurd-client:
         condition: service_healthy
     deploy:
       restart_policy:
@@ -48,7 +48,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:wireguard-client"
     depends_on:
-      gluetun:
+      wiregaurd-client:
         condition: service_healthy
     deploy:
       restart_policy:
@@ -75,7 +75,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:wireguard-client"
     depends_on:
-      gluetun:
+      wiregaurd-client:
         condition: service_healthy
     deploy:
       restart_policy:
@@ -102,7 +102,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:wireguard-client"
     depends_on:
-      gluetun:
+      wiregaurd-client:
         condition: service_healthy
     deploy:
       restart_policy:
@@ -125,7 +125,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:wireguard-client"
     depends_on:
-      gluetun:
+      wiregaurd-client:
         condition: service_healthy
     deploy:
       restart_policy:

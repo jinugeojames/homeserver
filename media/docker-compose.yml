@@ -14,7 +14,7 @@ services:
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
-    network_mode: "service:gluetun"
+    network_mode: "service:wireguard-client"
     depends_on:
       prowlarr:
         condition: service_started
@@ -41,7 +41,7 @@ services:
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
-    network_mode: "service:gluetun"
+    network_mode: "service:wireguard-client"
     depends_on:
       prowlarr:
         condition: service_started
@@ -69,7 +69,7 @@ services:
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
-    network_mode: "service:gluetun"
+    network_mode: "service:wireguard-client"
     depends_on:
       prowlarr:
         condition: service_started
@@ -97,7 +97,7 @@ services:
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
-    network_mode: "service:gluetun"
+    network_mode: "service:wireguard-client"
     depends_on:
       prowlarr:
         condition: service_started
