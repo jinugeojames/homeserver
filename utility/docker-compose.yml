@@ -51,7 +51,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
       home-server:
-        ipv4_address: 50.0.0.6
+        ipv4_address: 50.0.0.7
     ports:
       - "${STIRLING_PDF_PORT}:8080"
     volumes:
