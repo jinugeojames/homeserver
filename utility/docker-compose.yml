@@ -39,13 +39,19 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
       home-server:
-        ipv4_address: 50.0.0.5
+        ipv4_address: 50.0.0.6
     restart: unless-stopped
     ports:
       - "${IT_TOOLS_PORT}:80"
 
   stirling-pdf:
     image: frooodle/s-pdf:latest
+    container_name: stirling-pdf
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.6
     ports:
       - "${STIRLING_PDF_PORT}:8080"
     volumes:
