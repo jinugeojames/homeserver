@@ -1,7 +1,32 @@
 services:
-
-
-        #Bazarr
+  #Readarr
+  readarr:
+    container_name: readarr
+    image: ghcr.io/hotio/readarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Asia/Kolkata
+    volumes:
+      - ${APPDATA_PATH}/readarr/config:/config
+      - ${MEDIA_PATH}:/media
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    depends_on:
+      prowlarr:
+        condition: service_started
+    network_mode: "service:gluetun"
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+        delay: 7s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+  #Bazarr
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
@@ -94,6 +119,36 @@ services:
       - TZ=Asia/Kolkata
     volumes:
       - ${APPDATA_PATH}/radarr:/config
+      - ${MEDIA_PATH}:/media
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    network_mode: "service:wireguard-client"
+    depends_on:
+      prowlarr:
+        condition: service_started
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+        delay: 11s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+
+        # Whisparr
+  whisparr:
+    container_name: whisparr
+    image: ghcr.io/hotio/whisparr
+    ports:
+      - "6969:6969"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Asia/Kolkata
+    volumes:
+      - ${APPDATA_PATH}/whisparr:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
