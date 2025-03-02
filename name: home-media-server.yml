@@ -41,7 +41,6 @@ services:
         condition: unless-stopped
         delay: 50s
 
-
   #VPN
   gluetun:
     image: qmcgaw/gluetun
@@ -102,25 +101,25 @@ services:
         condition: unless-stopped
   #Bazarr
   bazarr:
-     image: lscr.io/linuxserver/bazarr:latest
-     container_name: bazarr
-     environment:
-       - PUID=1000
-       - PGID=1000
-       - TZ=Asia/Kolkata
-     volumes:
-       - ${APPDATA_PATH}/bazarr/:/config
-       - ${MEDIA_PATH}:/media
-     labels:
-       - "com.centurylinklabs.watchtower.enable=true"
-     network_mode: "service:gluetun"
-     depends_on:
-       prowlarr:
-         condition: service_started
-     deploy:
-       restart_policy:
-         condition: unless-stopped
-         delay: 7s
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - ${APPDATA_PATH}/bazarr/:/config
+      - ${MEDIA_PATH}:/media
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    network_mode: "service:gluetun"
+    depends_on:
+      prowlarr:
+        condition: service_started
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+        delay: 7s
 
   #Lidarr
   lidarr:
@@ -251,15 +250,6 @@ services:
         condition: unless-stopped
         delay: 15s
 
-  #Watchtower
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
-    networks:
-      media-network:  #Transmisssion
   transmission:
     image: lscr.io/linuxserver/transmission:latest
     container_name: transmission
@@ -290,26 +280,34 @@ services:
 
   #NZBGet
   nzbget:
-     image: lscr.io/linuxserver/nzbget:latest
-     container_name: nzbget
-     environment:
-       - PUID=1000
-       - PGID=1000
-       - TZ=Asia/Kolkata
-     volumes:
-       - ${APPDATA_PATH}/nzbget/config:/config
-       - ${MEDIA_PATH}/downloads:/media/downloads #optional
-     labels:
-       - "com.centurylinklabs.watchtower.enable=true"
-     network_mode: "service:gluetun"
-     depends_on:
-       gluetun:
-         condition: service_healthy
-     deploy:
-       restart_policy:
-         condition: unless-stopped
-         delay: 25s
-
+    image: lscr.io/linuxserver/nzbget:latest
+    container_name: nzbget
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - ${APPDATA_PATH}/nzbget/config:/config
+      - ${MEDIA_PATH}/downloads:/media/downloads #optional
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    network_mode: "service:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+        delay: 25s
+  #Watchtower
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    networks:
+      media-network:
     environment:
       - TZ=Asia/Kolkata
       - WATCHTOWER_CLEANUP=true

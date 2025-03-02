@@ -1,0 +1,85 @@
+name: home-server
+
+networks:
+  home-server:
+    name: home-server
+    external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 50.0.0.0/24
+services:
+  # Cloudflare Tunnel
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.1
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+  #VPN
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ${APPDATA_PATH}/gluetun:/gluetun
+      - ${APPDATA_PATH}/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+    environment:
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=wireguard
+      - VPN_ENDPOINT_IP=${VPN_ENDPOINT_IP}
+      - VPN_ENDPOINT_PORT=${VPN_ENDPOINT_PORT}
+      - WIREGUARD_PUBLIC_KEY=${WIREGUARD_PUBLIC_KEY}
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.3
+    ports:
+      - 8000:8000
+      - 8888:8888/tcp # HTTP proxy
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
+      # Lazylibrary
+      - 5299:5299
+      # Whisparr
+      - 6969:6969
+      # Readarr
+      - 8787:8787
+      # Lidarr
+      - 8686:8686
+      # Bazarr
+      - 6767:6767
+      # Sonarr
+      - 8989:8989
+      # Radarr
+      - 7878:7878
+      # Prowlarr
+      - 9696:9696
+      # Qbit
+      - 8092:8092
+      - 6882:6882
+      - 6882:6882/udp
+      # Transmission
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+      #nzbget
+      - 6789:6789
+      #Deluge
+      - 8112:8112
+      - 6881:6881
+      - 6881:6881/udp
+      - 58846:58846 #optional
+    deploy:
+      restart_policy:
+        condition: unless-stopped

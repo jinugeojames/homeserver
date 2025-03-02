@@ -1,0 +1,60 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      # Root directory
+      - root:/srv:rw
+      - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/filebrowser.db
+      - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
+      - ${APPDATA_PATH}/filebrowser/config/filebrowser.json:/.filebrowser.json:ro
+
+
+      # # Other directories you want to mount
+      # # For example
+      # # Your server home directory
+      # - $HOME:/srv/users/esh/home:rw
+      # # Volumes from other apps (must declared in the volumes section)
+      # - jellyfin-media:/srv/users/esh/media:rw
+    ports:
+      - ${FILEBROWSER_PORT}:8081
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.5
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+        delay: 50s
+
+  it-tools:
+    image: corentinth/it-tools:latest
+    container_name: it-tools
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.5
+    restart: unless-stopped
+    ports:
+      - "${IT_TOOLS}:80"
+
+  stirling-pdf:
+    image: frooodle/s-pdf:latest
+    ports:
+      - "${STIRLING_PORT}:8080"
+    volumes:
+      - ./trainingData:/usr/share/tessdata #Required for extra OCR languages
+      - ./extraConfigs:/configs
+    #      - ./customFiles:/customFiles/
+    #      - ./logs:/logs/
+    environment:
+      - DOCKER_ENABLE_SECURITY=false
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
+      - LANGS=en_GB
