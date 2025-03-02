@@ -16,7 +16,7 @@ services:
     network_mode: "service:wireguard-client"
     depends_on:
       wireguard-client:
-        condition: service_healthy
+        condition: service_started
     deploy:
       restart_policy:
         condition: unless-stopped
@@ -49,7 +49,7 @@ services:
     network_mode: "service:wireguard-client"
     depends_on:
       wireguard-client:
-        condition: service_healthy
+        condition: service_started
     deploy:
       restart_policy:
         condition: unless-stopped
@@ -76,7 +76,7 @@ services:
     network_mode: "service:wireguard-client"
     depends_on:
       wireguard-client:
-        condition: service_healthy
+        condition: service_started
     deploy:
       restart_policy:
         condition: unless-stopped
@@ -103,7 +103,7 @@ services:
     network_mode: "service:wireguard-client"
     depends_on:
       wireguard-client:
-        condition: service_healthy
+        condition: service_started
     deploy:
       restart_policy:
         condition: unless-stopped
@@ -126,7 +126,7 @@ services:
     network_mode: "service:wireguard-client"
     depends_on:
       wireguard-client:
-        condition: service_healthy
+        condition: service_started
     deploy:
       restart_policy:
         condition: unless-stopped

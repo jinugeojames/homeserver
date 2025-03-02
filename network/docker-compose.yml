@@ -29,7 +29,7 @@ services:
         max-size: "20m"
         max-file: "10"
   #VPN
-    # WireGuard
+  # WireGuard
   wireguard-client:
     image: lscr.io/linuxserver/wireguard:latest
     container_name: wireguard-client
@@ -43,6 +43,37 @@ services:
       - LOG_CONFS=true # optional
     ports:
       - 51820:51820/udp
+      # Lazylibrary
+      - 5299:5299
+      # Whisparr
+      - 6969:6969
+      # Readarr
+      - 8787:8787
+      # Lidarr
+      - 8686:8686
+      # Bazarr
+      - 6767:6767
+      # Sonarr
+      - 8989:8989
+      # Radarr
+      - 7878:7878
+      # Prowlarr
+      - 9696:9696
+      # Qbit
+      - 8092:8092
+      - 6882:6882
+      - 6882:6882/udp
+      # Transmission
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+      #nzbget
+      - 6789:6789
+      #Deluge
+      - 8112:8112
+      - 6881:6881
+      - 6881:6881/udp
+      - 58846:58846 #optional
     volumes:
       - ${APPDATA_PATH}/wireguard/config:/config
       - /lib/modules:/lib/modules # optional
