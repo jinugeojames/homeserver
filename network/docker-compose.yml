@@ -75,7 +75,7 @@ services:
       - 6881:6881/udp
       - 58846:58846 #optional
     volumes:
-      - ${APPDATA_PATH}/wireguard/config:/config
+      - ./APPDATA/wireguard/config:/config
       - /lib/modules:/lib/modules # optional
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
@@ -83,6 +83,14 @@ services:
     networks:
       home-server:
         ipv4_address: 50.0.0.4
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
   # gluetun:
   #   image: qmcgaw/gluetun
   #   container_name: gluetun
@@ -91,8 +99,8 @@ services:
   #   devices:
   #     - /dev/net/tun:/dev/net/tun
   #   volumes:
-  #     - ${APPDATA_PATH}/gluetun:/gluetun
-  #     - ${APPDATA_PATH}/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+  #     - ./APPDATA/gluetun:/gluetun
+  #     - ./APPDATA/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
   #   environment:
   #     - VPN_SERVICE_PROVIDER=custom
   #     - VPN_TYPE=wireguard

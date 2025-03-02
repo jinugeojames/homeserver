@@ -26,8 +26,8 @@ services:
       - PGID=1000
     volumes:
       - /:/srv
-      - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/filebrowser.db
-      - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
+      - ./APPDATA/filebrowser/config/filebrowser.db:/database/filebrowser.db
+      - ./APPDATA/filebrowser/config/settings.json:/settings.json
     ports:
       - 8081:8081
     security_opt:
@@ -48,8 +48,8 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ${APPDATA_PATH}/gluetun:/gluetun
-      - ${APPDATA_PATH}/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+      - ./APPDATA/gluetun:/gluetun
+      - ./APPDATA/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
     environment:
       - VPN_SERVICE_PROVIDER=custom
       - VPN_TYPE=wireguard
@@ -108,7 +108,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/bazarr/:/config
+      - ./APPDATA/bazarr/:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -130,7 +130,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/lidarr/config:/config
+      - ./APPDATA/lidarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -153,7 +153,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/sonarr/config:/config
+      - ./APPDATA/sonarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -176,7 +176,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/radarr:/config
+      - ./APPDATA/radarr:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -198,7 +198,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/prowlarr/config:/config
+      - ./APPDATA/prowlarr/config:/config
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:gluetun"
@@ -237,7 +237,7 @@ services:
       - TZ=Asia/Kolkata
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ${APPDATA_PATH}/nzbget/config:/config
+      - ./APPDATA/nzbget/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads #optional
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -264,7 +264,7 @@ services:
       #- PEERPORT= #optional
       #- HOST_WHITELIST= #optional
     volumes:
-      - ${APPDATA_PATH}/transmission/config:/config
+      - ./APPDATA/transmission/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads
       - ${MEDIA_PATH}/watch:/media/watch
     labels:
@@ -287,7 +287,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/nzbget/config:/config
+      - ./APPDATA/nzbget/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads #optional
     labels:
       - "com.centurylinklabs.watchtower.enable=true"

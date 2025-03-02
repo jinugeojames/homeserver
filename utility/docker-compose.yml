@@ -7,8 +7,8 @@ services:
       - PGID=1000
     volumes:
       # Root directory
-      - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/database.db
-      - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
+      - ./APPDATA/filebrowser/config/filebrowser.db:/database/database.db
+      - ./APPDATA/filebrowser/config/settings.json:/settings.json
       - ${MEDIA_PATH}:/srv/users/esh/media:rw
       - ${APPDATA_PATH}:/srv/users/esh/appdata:rw
 
@@ -65,8 +65,8 @@ services:
     ports:
       - "${STIRLING_PDF_PORT}:8080"
     volumes:
-      - ${APPDATA_PATH}/stirling-pdf/training-data:/usr/share/tessdata #Required for extra OCR languages
-      - ${APPDATA_PATH}/stirling-pdf/configs:/configs
+      - ./APPDATA/stirling-pdf/training-data:/usr/share/tessdata #Required for extra OCR languages
+      - ./APPDATA/stirling-pdf/configs:/configs
     #      - ./customFiles:/customFiles/
     #      - ./logs:/logs/
     environment:

@@ -19,7 +19,7 @@ services:
   #     cap_add:
   #       - NET_ADMIN
   #     volumes:
-  #       - ${APPDATA_PATH}/wireguard:/etc/wireguard
+  #       - ./APPDATA/wireguard:/etc/wireguard
   #     labels:
   #       - "com.centurylinklabs.watchtower.enable=true"
   #     deploy:
@@ -47,7 +47,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ${APPDATA_PATH}/homepage/config:/app/config # Make sure your local config directory exists
+      - ./APPDATA/homepage/config:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -71,7 +71,7 @@ services:
       - DUPLICATI__WEBSERVICE_PASSWORD=${PASSWORD}
       - TZ=Asia/Kolkatta
     volumes:
-      - ${APPDATA_PATH}/duplicati/config:/config
+      - ./APPDATA/duplicati/config:/config
       - /home/jinugeo/backups:/backups
       - /home/jinugeo:/source
     ports:
@@ -94,7 +94,7 @@ services:
   #   # or set shared memory limit when deploy via swarm stack
   #   volumes:
   #     - type: tmpfs
-  #       target: ${APPDATA_PATH}/postgres
+  #       target: ./APPDATA/postgres
   #       tmpfs:
   #         size: 536870912 # 512*2^20 bytes = 512Mb
   #   environment:
@@ -117,7 +117,7 @@ services:
   #     - PGID=1000
   #     - TZ=Asia/Kolkata
   #   volumes:
-  #     - ${APPDATA_PATH}/nextcloud/config:/config
+  #     - ./APPDATA/nextcloud/config:/config
   #   ports:
   #     - 1337:80
   #   networks:
@@ -136,7 +136,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ${APPDATA_PATH}/filezilla/config:/config
+      - ./APPDATA/filezilla/config:/config
       - ${MEDIA_PATH}:/media
     ports:
       - 7000:3000
@@ -151,8 +151,8 @@ services:
       - PGID=1000
     volumes:
       - /:/srv
-      - ${APPDATA_PATH}/filebrowser/config/filebrowser.db:/database/filebrowser.db
-      - ${APPDATA_PATH}/filebrowser/config/settings.json:/settings.json
+      - ./APPDATA/filebrowser/config/filebrowser.db:/database/filebrowser.db
+      - ./APPDATA/filebrowser/config/settings.json:/settings.json
     ports:
       - 8081:8081
     security_opt:
@@ -180,7 +180,7 @@ services:
       - SUBFOLDER=/ #optional
       - TITLE=Webtop #optional
     volumes:
-      - ${APPDATA_PATH}/webtop/config:/config
+      - ./APPDATA/webtop/config:/config
       - ${MEDIA_PATH}:/media
     ports:
       - 4000:3000
@@ -204,7 +204,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/jellyfin/config:/config
+      - ./APPDATA/jellyfin/config:/config
       - ${MEDIA_PATH}/movies:/data/movies
       - ${MEDIA_PATH}/tv-shows:/data/tvshows
       - ${MEDIA_PATH}/music:/data/music
@@ -231,7 +231,7 @@ services:
     ports:
       - 5055:5055
     volumes:
-      - ${APPDATA_PATH}/jellyseerr:/app/config
+      - ./APPDATA/jellyseerr:/app/config
     networks:
       media-network:
     depends_on:
@@ -253,8 +253,8 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ${APPDATA_PATH}/gluetun:/gluetun
-      - ${APPDATA_PATH}/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+      - ./APPDATA/gluetun:/gluetun
+      - ./APPDATA/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
     environment:
       - VPN_SERVICE_PROVIDER=custom
       - VPN_TYPE=wireguard
@@ -315,7 +315,7 @@ services:
        - UMASK=002
        - TZ=Asia/Kolkata
      volumes:
-       - ${APPDATA_PATH}/readarr/config:/config
+       - ./APPDATA/readarr/config:/config
        - ${MEDIA_PATH}:/media
      labels:
        - "com.centurylinklabs.watchtower.enable=true"
@@ -337,7 +337,7 @@ services:
        - PGID=1000
        - TZ=Asia/Kolkata
      volumes:
-       - ${APPDATA_PATH}/bazarr/:/config
+       - ./APPDATA/bazarr/:/config
        - ${MEDIA_PATH}:/media
      labels:
        - "com.centurylinklabs.watchtower.enable=true"
@@ -359,7 +359,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/lidarr/config:/config
+      - ./APPDATA/lidarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -382,7 +382,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/sonarr/config:/config
+      - ./APPDATA/sonarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -405,7 +405,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/radarr:/config
+      - ./APPDATA/radarr:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -427,7 +427,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/prowlarr/config:/config
+      - ./APPDATA/prowlarr/config:/config
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     network_mode: "service:gluetun"
@@ -467,7 +467,7 @@ services:
       - WEBUI_PORT=8092
       - TORRENTING_PORT=6882
     volumes:
-      - ${APPDATA_PATH}/qbittorrent/config:/config
+      - ./APPDATA/qbittorrent/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -494,7 +494,7 @@ services:
       #- PEERPORT= #optional
       #- HOST_WHITELIST= #optional
     volumes:
-      - ${APPDATA_PATH}/transmission/config:/config
+      - ./APPDATA/transmission/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads
       - ${MEDIA_PATH}/watch:/media/watch
     labels:
@@ -517,7 +517,7 @@ services:
        - PGID=1000
        - TZ=Asia/Kolkata
      volumes:
-       - ${APPDATA_PATH}/nzbget/config:/config
+       - ./APPDATA/nzbget/config:/config
        - ${MEDIA_PATH}/downloads:/media/downloads #optional
      labels:
        - "com.centurylinklabs.watchtower.enable=true"
@@ -540,7 +540,7 @@ services:
       - TZ=Asia/Kolkata
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ${APPDATA_PATH}/nzbget/config:/config
+      - ./APPDATA/nzbget/config:/config
       - ${MEDIA_PATH}/downloads:/media/downloads #optional
     labels:
       - "com.centurylinklabs.watchtower.enable=true"

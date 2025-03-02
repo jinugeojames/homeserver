@@ -9,7 +9,7 @@ services:
       - UMASK=002
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/readarr/config:/config
+      - ./APPDATA/readarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -35,7 +35,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/bazarr/:/config
+      - ./APPDATA/bazarr/:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -62,7 +62,7 @@ services:
       - PGID=1000
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/lidarr/config:/config
+      - ./APPDATA/lidarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -90,7 +90,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/sonarr/config:/config
+      - ./APPDATA/sonarr/config:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -118,7 +118,7 @@ services:
       - UMASK=022
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/radarr:/config
+      - ./APPDATA/radarr:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -148,7 +148,7 @@ services:
       - UMASK=002
       - TZ=Asia/Kolkata
     volumes:
-      - ${APPDATA_PATH}/whisparr:/config
+      - ./APPDATA/whisparr:/config
       - ${MEDIA_PATH}:/media
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
