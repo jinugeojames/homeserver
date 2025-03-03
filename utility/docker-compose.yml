@@ -10,7 +10,7 @@ services:
       - ../APPDATA/filebrowser/config/filebrowser.db:/database/database.db
       - ../APPDATA/filebrowser/config/settings.json:/settings.json
       - ${MEDIA_PATH}:/srv/users/esh/media:rw
-      - ${APPDATA_PATH}:/srv/users/esh/appdata:rw
+      - ../APPDATA:/srv/users/esh/appdata:rw
 
       # # Other directories you want to mount
       # # For example
