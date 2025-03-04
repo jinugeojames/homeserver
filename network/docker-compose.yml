@@ -205,7 +205,7 @@ services:
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
       FTLCONF_dns_listeningMode: "all"
       # unbound upstream DNS
-      FTLCONF_upstream_dns: 5.0.0.6#5053
+      FTLCONF_dns_upstream: 5.0.0.6#5053
 
     # Volumes store your data between container upgrades
     volumes:
@@ -238,7 +238,7 @@ services:
 
   unbound:
     container_name: unbound
-    image: mvance/unbound:latest # remember to change this if you're using rpi
+    image: alpinelinux/unbound:latest # remember to change this if you're using rpi
     networks:
       home-server:
         ipv4_address: 50.0.0.6
@@ -247,8 +247,6 @@ services:
     ports:
       - "5053:53/tcp"
       - "5053:53/udp"
-    healthcheck:
-      test: ["NONE"]
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     deploy:
