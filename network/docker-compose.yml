@@ -238,7 +238,7 @@ services:
     container_name: unbound
     image: mvance/unbound:latest # remember to change this if you're using rpi
     networks:
-      dns_net:
+      home-server:
         ipv4_address: 50.0.0.6
     volumes:
       - /home/ubuntu/docker/unbound:/opt/unbound/etc/unbound
