@@ -197,6 +197,8 @@ services:
       # Uncomment the line below if you are using Pi-hole as your NTP server
       #- "123:123/udp"
     environment:
+      # PIHOLE_UID: 1000
+      # PIHOLE_GID: 1000
       # Set the appropriate timezone for your location from
       # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones, e.g:
       TZ: "Asia/Kolkata"
@@ -205,7 +207,7 @@ services:
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
       FTLCONF_dns_listeningMode: "all"
       # unbound upstream DNS
-      FTLCONF_dns_upstream: 5.0.0.6#5053
+      FTLCONF_dns_upstream: unbound#5053
 
     # Volumes store your data between container upgrades
     volumes:
@@ -241,12 +243,8 @@ services:
     image: alpinelinux/unbound:latest # remember to change this if you're using rpi
     networks:
       home-server:
-        ipv4_address: 50.0.0.6
     volumes:
       - ../APPDATA/unbound:/etc/unbound
-    ports:
-      - "5053:53/tcp"
-      - "5053:53/udp"
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     deploy:
