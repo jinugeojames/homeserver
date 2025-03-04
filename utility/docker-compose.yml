@@ -78,3 +78,14 @@ services:
       options:
         max-size: "20m"
         max-file: "10"
+
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD}
+    volumes:
+      - ../APPDATA/postgres:/var/lib/postgresql/data

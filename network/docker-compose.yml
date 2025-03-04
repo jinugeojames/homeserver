@@ -204,6 +204,7 @@ services:
       FTLCONF_webserver_api_password: ${PASSWORD}
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
       FTLCONF_dns_listeningMode: "all"
+      PIHOLE_DNS_: '50.0.0.6#5053'
     # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
@@ -222,6 +223,30 @@ services:
     networks:
       home-server:
         ipv4_address: 50.0.0.5
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    deploy:
+      restart_policy:
+        condition: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+
+  unbound:
+    container_name: unbound
+    image: mvance/unbound:latest # remember to change this if you're using rpi
+    networks:
+      dns_net:
+        ipv4_address: 50.0.0.6
+    volumes:
+      - /home/ubuntu/docker/unbound:/opt/unbound/etc/unbound
+    ports:
+      - "5053:53/tcp"
+      - "5053:53/udp"
+    healthcheck:
+      test: ["NONE"]
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     deploy:
