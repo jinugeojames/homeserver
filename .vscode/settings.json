@@ -35,6 +35,7 @@
     "Readarr",
     "Shadowsocks",
     "Sonarr",
+    "tmpfs",
     "Whisparr"
   ]
 }

@@ -1,0 +1,28 @@
+services:
+  samba:
+    image: dperson/samba
+    environment:
+      TZ: 'EST5EDT'
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.100
+
+    ports:
+      - "137:137/udp"
+      - "138:138/udp"
+      - "139:139/tcp"
+      - "445:445/tcp"
+    read_only: false
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - ${MEDIA_PATH}:/mnt:z
+    command: '-s "Bobs Volume;/mnt;yes;no;no;${USERNAME}" -u "${USERNAME};${PASSWORD}" -p'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"

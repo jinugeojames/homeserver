@@ -15,6 +15,8 @@ services:
     command: tunnel run
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+      - PUID=1000
+      - PGID=1000
     networks:
       home-server:
         ipv4_address: 50.0.0.2
@@ -28,6 +30,7 @@ services:
       options:
         max-size: "20m"
         max-file: "10"
+
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     image: "jc21/nginx-proxy-manager:latest"
@@ -36,7 +39,9 @@ services:
       - "80:80"
       - "443:443"
       - "81:81"
-
+    environment:
+      - PUID=1000
+      - PGID=1000
     volumes:
       - ./APPDATA/nginx-proxy-manager/data:/data
       - ./APPDATA/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
@@ -197,17 +202,19 @@ services:
       # Uncomment the line below if you are using Pi-hole as your NTP server
       #- "123:123/udp"
     environment:
+      - PIHOLE_UID=1000
+      - PIHOLE_GID=1000
       # PIHOLE_UID: 1000
       # PIHOLE_GID: 1000
       # Set the appropriate timezone for your location from
       # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones, e.g:
-      TZ: "Asia/Kolkata"
+      - TZ="Asia/Kolkata"
       # Set a password to access the web interface. Not setting one will result in a random password being assigned
-      FTLCONF_webserver_api_password: ${PASSWORD}
+      - FTLCONF_webserver_api_password=${PASSWORD}
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
-      FTLCONF_dns_listeningMode: "all"
-      # unbound upstream DNS
-      FTLCONF_dns_upstream: unbound#5053
+      - FTLCONF_dns_listeningMode="all"
+      # unbound upstream DN
+      - FTLCONF_dns_upstream=unbound#5335
 
     # Volumes store your data between container upgrades
     volumes:
@@ -241,6 +248,9 @@ services:
   unbound:
     container_name: unbound
     image: alpinelinux/unbound:latest # remember to change this if you're using rpi
+    environment:
+      - PUID=1000
+      - PGID=1000
     networks:
       home-server:
     volumes:
