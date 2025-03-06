@@ -21,7 +21,7 @@ services:
     tty: true
     volumes:
       - ${MEDIA_PATH}:/mnt:z
-    command: '-s "Bobs Volume;/mnt;yes;no;no;${USERNAME}" -u "${USERNAME};${PASSWORD}" -p'
+    command: '-s "Media Volume;/mnt;yes;no;no;${USERNAME}" -u "${USERNAME};${PASSWORD}" -p'
     logging:
       driver: "json-file"
       options:
