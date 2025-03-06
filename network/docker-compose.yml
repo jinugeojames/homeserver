@@ -19,7 +19,7 @@ services:
       - PGID=1000
     networks:
       home-server:
-        ipv4_address: 50.0.0.2
+        ipv4_address: 50.0.0.10
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     deploy:
