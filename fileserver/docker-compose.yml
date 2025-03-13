@@ -11,7 +11,7 @@ services:
         ipv4_address: 50.0.0.100
     volumes:
       - ../APPDATA/nextcloud/config:/config
-      - /path/to/data:/data
+      - ${MEDIA_PATH}/nextcloud:/data
     ports:
       - 1234:443
     restart: unless-stopped
