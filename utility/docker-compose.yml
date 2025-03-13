@@ -93,6 +93,6 @@ services:
       - "5432:5432"
     networks:
       home-server:
-        ipv4_address: 5.0.0.14
+        ipv4_address: 50.0.0.14
     volumes:
       - ../APPDATA/postgres:/var/lib/postgresql/data
