@@ -204,8 +204,6 @@ services:
     environment:
       - PIHOLE_UID=1000
       - PIHOLE_GID=1000
-      # PIHOLE_UID: 1000
-      # PIHOLE_GID: 1000
       # Set the appropriate timezone for your location from
       # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones, e.g:
       - TZ="Asia/Kolkata"
@@ -248,9 +246,6 @@ services:
   unbound:
     container_name: unbound
     image: alpinelinux/unbound:latest # remember to change this if you're using rpi
-    environment:
-      - PUID=1000
-      - PGID=1000
     networks:
       home-server:
     volumes:

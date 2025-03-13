@@ -1,0 +1,157 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: home-server
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-config
+  namespace: home-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data
+  namespace: home-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  namespace: home-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+      - name: nextcloud
+        image: lscr.io/linuxserver/nextcloud:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Asia/Kolkata"
+        ports:
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: /config
+          name: nextcloud-config
+        - mountPath: /data
+          name: nextcloud-data
+      volumes:
+      - name: nextcloud-config
+        persistentVolumeClaim:
+          claimName: nextcloud-config
+      - name: nextcloud-data
+        persistentVolumeClaim:
+          claimName: nextcloud-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+  namespace: home-server
+spec:
+  selector:
+    app: nextcloud
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+      nodePort: 31234
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samba
+  namespace: home-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: samba
+  template:
+    metadata:
+      labels:
+        app: samba
+    spec:
+      containers:
+      - name: samba
+        image: dperson/samba
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Asia/Kolkata"
+        ports:
+        - containerPort: 137
+          protocol: UDP
+        - containerPort: 138
+          protocol: UDP
+        - containerPort: 139
+          protocol: TCP
+        - containerPort: 445
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /mnt
+          name: media
+        command: ['-s', 'Shared Media Volume;/mnt;yes;no;no;${USERNAME}', '-u', '${USERNAME};${PASSWORD}', '-p']
+      volumes:
+      - name: media
+        hostPath:
+          path: ${MEDIA_PATH}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: samba
+  namespace: home-server
+spec:
+  selector:
+    app: samba
+  ports:
+    - protocol: UDP
+      port: 137
+      targetPort: 137
+    - protocol: UDP
+      port: 138
+      targetPort: 138
+    - protocol: TCP
+      port: 139
+      targetPort: 139
+    - protocol: TCP
+      port: 445
+      targetPort: 445
+  type: ClusterIP
+
+# ...additional services and deployments for other containers...

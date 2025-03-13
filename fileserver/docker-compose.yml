@@ -1,12 +1,31 @@
 services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    networks:
+      home-server:
+        ipv4_address: 50.0.0.100
+    volumes:
+      - ../APPDATA/nextcloud/config:/config
+      - /path/to/data:/data
+    ports:
+      - 1234:443
+    restart: unless-stopped
+
   samba:
     image: dperson/samba
     container_name: samba
     environment:
-      TZ: 'EST5EDT'
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
     networks:
       home-server:
-        ipv4_address: 50.0.0.100
+        ipv4_address: 50.0.0.110
 
     ports:
       - "137:137/udp"
@@ -21,7 +40,7 @@ services:
     tty: true
     volumes:
       - ${MEDIA_PATH}:/mnt:z
-    command: '-s "Media Volume;/mnt;yes;no;no;${USERNAME}" -u "${USERNAME};${PASSWORD}" -p'
+    command: '-s "Shared Media Volume;/mnt;yes;no;no;${USERNAME}" -u "${USERNAME};${PASSWORD}" -p'
     logging:
       driver: "json-file"
       options:
